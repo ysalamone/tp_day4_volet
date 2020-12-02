@@ -4,8 +4,8 @@
 
     
     <body>
-        
-        
+
+
         
         <div class="container">
  
@@ -21,4 +21,10 @@
         
     </body>
 </html>
+<script>
+    let slider = document.getElementsByTagName('input')[0];
+    slider.oninput = function() {
+        document.getElementsByClassName('volet-fermeture-valeur')[0].innerText = slider.value;
+    }
+</script>
 <!--La solution est sur https://codepen.io/jim005 -->
