@@ -2,6 +2,28 @@
 <html>
     <title>Pilotage de volet</title>
     <style>
+        :root {
+            --hauteur: 600px;
+            --decalage: 0.5;
+        }
+        body {
+            margin: 0;
+        }
+        .container {
+            background-color: #FFEFCA;
+            height: 600px;
+            width: 300px;
+        }
+        .lames {
+            position: absolute;
+            top: calc( var(--decalage) * var(--hauteur) * -1 );
+        }
+        .lame {
+            width: 300px;
+            height: 50px;
+            margin: 10px 0;
+            background-color: goldenrod;
+        }
         .range-slider {
             display: inline-block;
             width: 20px;
@@ -19,29 +41,43 @@
             /*background-color: transparent;*/
         }
     </style>
-    
+
     <body>
 
 
-        
+
         <div class="container">
- 
+          <div class="lames">
+              <div class="lame"></div>
+              <div class="lame"></div>
+              <div class="lame"></div>
+              <div class="lame"></div>
+              <div class="lame"></div>
+              <div class="lame"></div>
+              <div class="lame"></div>
+              <div class="lame"></div>
+              <div class="lame"></div>
+              <div class="lame"></div>
+          </div>
           <div class="range-slider">
             <input type="range" orient="vertical" min="0" max="100" />
-          </div> 
-          
+          </div>
+
           <p class="debug">DEBUG : <span class="volet-fermeture-valeur">VALEUR</span> </p>
-          
+
         </div>
-                
-                
-        
+
+
+
     </body>
 </html>
 <script>
+    let root = document.documentElement;
     let slider = document.getElementsByTagName('input')[0];
     slider.oninput = function() {
         document.getElementsByClassName('volet-fermeture-valeur')[0].innerText = slider.value;
+        root.style.setProperty('--decalage', (slider.value/100).toString());
+
     }
 </script>
 <!--La solution est sur https://codepen.io/jim005 -->
