@@ -1,0 +1,75 @@
+:root {
+    --hauteur: 600px; /* hauteur totale de la fenêtre */
+    --decalage: 0.45; /* décalage en % du bloc de volets (calculé en JS) */
+}
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container {
+    background-color: #FFEFCA;
+    height: var(--hauteur);
+    width: 300px;
+}
+.lames {
+    position: absolute;
+    top: calc(var(--hauteur) * var(--decalage) * -1); /* calcul en px du décalage vers le haut */
+}
+.lame {
+    width: 300px;
+    height: 58px;
+    margin: 2px 0;
+    background-color: goldenrod;
+}
+.inclinee {
+    transform: skew(35deg) scale(0.9) translateX(5px);
+}
+.corde {
+    width: 8px;
+    height: 50px;
+    background-color: orange;
+    position: absolute;
+    left: 6px;
+}
+.range-slider {
+    display: inline-block;
+    width: 20px;
+    height: 600px;
+    padding: 0;
+}
+.range-slider input {
+    width: 580px;
+    height: 20px;
+    margin: 0;
+    transform-origin: 300px 300px;
+    transform: translateY(80px) rotate(-90deg);
+    /* cacher le slider */
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: transparent;
+}
+/* outline de focus du slider cachée (Chrome) */
+.range-slider input:focus {
+    outline: none;
+}
+/* styliser la poignée du slider (Chrome et Safari) */
+.range-slider input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 36px;
+    width: 36px;
+    border-radius: 18px;
+    border: 0 solid transparent;
+    background-color: orange;
+    cursor: pointer;
+}
+/* styliser la poignée du slider (Firefox) */
+.range-slider input::-moz-range-thumb {
+    height: 36px;
+    width: 36px;
+    border-radius: 18px;
+    border: 0 solid transparent;
+    background-color: orange;
+    cursor: pointer;
+}
