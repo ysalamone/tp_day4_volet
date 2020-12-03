@@ -88,10 +88,10 @@
               <!-- TODO faire en sorte que les lames s'agglutinent en haut de la fenêtre -->
           </div>
           <div class="range-slider">
-            <input type="range" id="ouverture" orient="vertical" min="0" max="90" />
+            <input type="range" id="ouverture" orient="vertical" min="0" max="100" />
           </div>
 
-          <!--<p class="debug">DEBUG : <span class="volet-fermeture-valeur">VALEUR</span> </p>-->
+          <p class="debug">DEBUG : <span class="volet-fermeture-valeur">VALEUR</span> </p>
 
         </div>
 
@@ -101,13 +101,13 @@
 </html>
 <script>
     let root = document.documentElement;
-    let slider = document.getElementsByTagName('input')[0];
+    let slider = document.getElementById('ouverture');
     let lames = document.querySelectorAll('.lame');
     slider.oninput = function() {
-        document.getElementById('ouverture').innerText = slider.value;
-        root.style.setProperty('--decalage', (slider.value/100).toString());
+        document.getElementsByClassName('volet-fermeture-valeur')[0].innerText = slider.value;
+        root.style.setProperty('--decalage', (slider.value * 0.9 / 100).toString()); // *0.9 pour que le dernier des 10 volets soit toujours affiché
         lames.forEach((lame) => {
-            lame.className = slider.value === '0' || slider.value === '90' ? 'lame' : 'lame inclinee';
+            lame.className = slider.value === '0' || slider.value === '100' ? 'lame' : 'lame inclinee';
         });
     }
 </script>
