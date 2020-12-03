@@ -10,7 +10,8 @@
         body {
             margin: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
         .container {
             background-color: #FFEFCA;
@@ -98,6 +99,7 @@
             <input type="range" id="ouverture" min="0" max="100" value="50"/>
           </div>
         </div>
+        <span>Ouverture : <span id="valOuverture">50</span> %</span>
 
     </body>
 </html>
@@ -106,6 +108,7 @@
     let slider = document.querySelector('#ouverture');
     let lames = document.querySelectorAll('.lame');
     slider.oninput = function() {
+        document.querySelector('#valOuverture').innerText = slider.value;
         //calcul et modification de la variable CSS --decalage
         //on fait un *0.9 pour que la dernière des 10 lames soit toujours visible
         root.style.setProperty('--decalage', (slider.value * 0.9 / 100).toString());
