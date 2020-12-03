@@ -108,9 +108,9 @@
     let lames = document.querySelectorAll('.lame');
     slider.oninput = function() {
         //calcul et modification de la variable CSS --decalage
-        // on fait un *0.9 pour que la dernière des 10 lames soit toujours visible
+        //on fait un *0.9 pour que la dernière des 10 lames soit toujours visible
         root.style.setProperty('--decalage', (slider.value * 0.9 / 100).toString());
-        //si le volet est totalement ouvert et fermé, les lames ne sont pas inclinées
+        //si le volet est totalement ouvert ou fermé, les lames ne sont pas inclinées
         lames.forEach((lame) => {
             lame.className = slider.value === '0' || slider.value === '100' ? 'lame' : 'lame inclinee';
         });
