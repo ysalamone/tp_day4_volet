@@ -35,7 +35,7 @@
             height: 50px;
             background-color: orange;
             position: absolute;
-            left: 36px;
+            left: 6px;
         }
         .range-slider {
             display: inline-block;
@@ -66,16 +66,15 @@
             border-radius: 18px;
             background-color: orange;
             cursor: pointer;
-            margin-top: 60px;
         }
         /* styliser la poignée du slider (Firefox) */
         input[type=range]::-moz-range-thumb {
             height: 36px;
             width: 36px;
             border-radius: 18px;
+            border: 0px solid transparent;
             background-color: orange;
             cursor: pointer;
-            margin-top: 60px;
         }
     </style>
 
@@ -96,7 +95,7 @@
               <div class="corde"></div>
           </div>
           <div class="range-slider">
-            <input type="range" id="ouverture" orient="vertical" min="0" max="100" />
+            <input type="range" id="ouverture" min="0" max="100" value="50"/>
           </div>
         </div>
 
