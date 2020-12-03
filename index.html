@@ -4,7 +4,7 @@
     <style>
         :root {
             --hauteur: 600px;
-            --decalage: 0.5;
+            --decalage: 0.45;
         }
         body {
             margin: 0;
@@ -16,13 +16,23 @@
         }
         .lames {
             position: absolute;
-            top: calc( var(--decalage) * var(--hauteur) * -1 );
+            top: calc(var(--decalage) * var(--hauteur) * -1);
         }
         .lame {
             width: 300px;
-            height: 50px;
-            margin: 10px 0;
+            height: 58px;
+            margin: 2px 0;
             background-color: goldenrod;
+        }
+        .inclinee {
+            transform: skew(35deg) scale(0.9) translateX(5px);
+        }
+        .corde {
+            width: 8px;
+            height: 50px;
+            background-color: orange;
+            position: absolute;
+            left: 24px;
         }
         .range-slider {
             display: inline-block;
@@ -31,14 +41,26 @@
             padding: 0;
         }
         .range-slider input {
-            width: 600px;
+            width: 580px;
             height: 20px;
             margin: 0;
             transform-origin: 300px 300px;
-            transform: rotate(-90deg);
-            /*appearance: none;*/
-            /*-webkit-apprearance: none;*/
-            /*background-color: transparent;*/
+            transform: translateY(80px) rotate(-90deg);
+            appearance: none;
+            -webkit-apprearance: none;
+            background-color: transparent;
+        }
+        .range-slider input:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 36px;
+            width: 36px;
+            border-radius: 18px;
+            background-color: orange;
+            cursor: pointer;
+            margin-top: 36px;
         }
     </style>
 
@@ -48,22 +70,25 @@
 
         <div class="container">
           <div class="lames">
-              <div class="lame"></div>
-              <div class="lame"></div>
-              <div class="lame"></div>
-              <div class="lame"></div>
-              <div class="lame"></div>
-              <div class="lame"></div>
-              <div class="lame"></div>
-              <div class="lame"></div>
-              <div class="lame"></div>
-              <div class="lame"></div>
+              <div class="lame inclinee"></div>
+              <div class="lame inclinee"></div>
+              <div class="lame inclinee"></div>
+              <div class="lame inclinee"></div>
+              <div class="lame inclinee"></div>
+              <div class="lame inclinee"></div>
+              <div class="lame inclinee"></div>
+              <div class="lame inclinee"></div>
+              <div class="lame inclinee"></div>
+              <div class="lame inclinee"></div>
+              <div class="corde"></div>
+              <div></div>
+              <!-- TODO faire en sorte que les lames s'agglutinent en haut de la fenêtre -->
           </div>
           <div class="range-slider">
-            <input type="range" orient="vertical" min="0" max="100" />
+            <input type="range" orient="vertical" min="0" max="90" />
           </div>
 
-          <p class="debug">DEBUG : <span class="volet-fermeture-valeur">VALEUR</span> </p>
+          <!--<p class="debug">DEBUG : <span class="volet-fermeture-valeur">VALEUR</span> </p>-->
 
         </div>
 
@@ -74,10 +99,13 @@
 <script>
     let root = document.documentElement;
     let slider = document.getElementsByTagName('input')[0];
+    let lames = document.querySelectorAll('.lame');
     slider.oninput = function() {
         document.getElementsByClassName('volet-fermeture-valeur')[0].innerText = slider.value;
         root.style.setProperty('--decalage', (slider.value/100).toString());
-
+        lames.forEach((lame) => {
+            lame.className = slider.value === '0' || slider.value === '90' ? 'lame' : 'lame inclinee';
+        });
     }
 </script>
 <!--La solution est sur https://codepen.io/jim005 -->
