@@ -4,8 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
-            --hauteur: 600px;
-            --decalage: 0.45;
+            --hauteur: 600px; /* hauteur totale de la fenêtre */
+            --decalage: 0.45; /* décalage en % du bloc de volets (calculé en JS) */
         }
         body {
             margin: 0;
@@ -14,12 +14,12 @@
         }
         .container {
             background-color: #FFEFCA;
-            height: 600px;
+            height: var(--hauteur);
             width: 300px;
         }
         .lames {
             position: absolute;
-            top: calc(var(--decalage) * var(--hauteur) * -1);
+            top: calc(var(--hauteur) * var(--decalage) * -1); /* calcul en px du décalage vers le haut */
         }
         .lame {
             width: 300px;
@@ -49,15 +49,27 @@
             margin: 0;
             transform-origin: 300px 300px;
             transform: translateY(80px) rotate(-90deg);
+            /* cacher le slider */
             appearance: none;
             -webkit-appearance: none;
             background-color: transparent;
         }
+        /* outline de focus du slider cachée (Chrome) */
         .range-slider input:focus {
             outline: none;
         }
+        /* styliser la poignée du slider (Chrome et Safari) */
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
+            height: 36px;
+            width: 36px;
+            border-radius: 18px;
+            background-color: orange;
+            cursor: pointer;
+            margin-top: 36px;
+        }
+        /* styliser la poignée du slider (Firefox) */
+        input[type=range]::-moz-range-thumb {
             height: 36px;
             width: 36px;
             border-radius: 18px;
@@ -68,8 +80,6 @@
     </style>
 
     <body>
-
-
 
         <div class="container">
           <div class="lames">
@@ -84,31 +94,25 @@
               <div class="lame inclinee"></div>
               <div class="lame inclinee"></div>
               <div class="corde"></div>
-              <div></div>
-              <!-- TODO faire en sorte que les lames s'agglutinent en haut de la fenêtre -->
           </div>
           <div class="range-slider">
             <input type="range" id="ouverture" orient="vertical" min="0" max="100" />
           </div>
-
-          <p class="debug">DEBUG : <span class="volet-fermeture-valeur">VALEUR</span> </p>
-
         </div>
-
-
 
     </body>
 </html>
 <script>
     let root = document.documentElement;
-    let slider = document.getElementById('ouverture');
+    let slider = document.querySelector('#ouverture');
     let lames = document.querySelectorAll('.lame');
     slider.oninput = function() {
-        document.getElementsByClassName('volet-fermeture-valeur')[0].innerText = slider.value;
-        root.style.setProperty('--decalage', (slider.value * 0.9 / 100).toString()); // *0.9 pour que le dernier des 10 volets soit toujours affiché
+        //calcul et modification de la variable CSS --decalage
+        // on fait un *0.9 pour que la dernière des 10 lames soit toujours visible
+        root.style.setProperty('--decalage', (slider.value * 0.9 / 100).toString());
+        //si le volet est totalement ouvert et fermé, les lames ne sont pas inclinées
         lames.forEach((lame) => {
             lame.className = slider.value === '0' || slider.value === '100' ? 'lame' : 'lame inclinee';
         });
     }
 </script>
-<!--La solution est sur https://codepen.io/jim005 -->
